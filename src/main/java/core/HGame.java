@@ -57,21 +57,11 @@ public class HGame {
 		Location hologramLocation =
 				new Location(
 						this.getWorld(),
-						(wall.x0 + wall.x1)/2,
-						Math.max(wall.y0,wall.y1) + 6.5,
-						(wall.z0 + wall.z1)/2
+						(playfield.x0 + playfield.x1)/2 + 0.5,
+						Math.max(playfield.y0, playfield.y1) + 6.5,
+						(playfield.z0 + playfield.z1)/2 + 0.5
 				);
 		
-		int distance = 21;
-		if (name.equals("Qualification")) distance = 16;
-		if (name.equals("Wide Qualification")) distance = 16;
-		if (name.equals("Wide Finals")) distance = 16;
-		if (name.equals("Lobby Wall")) distance = 11;
-		
-		if (direction == Direction.SOUTH) hologramLocation.add(-distance,0,0.5);
-		if (direction == Direction.NORTH) hologramLocation.add(distance,0,0.5);
-		if (direction == Direction.EAST) hologramLocation.add(0.5,0,distance);
-		if (direction == Direction.WEST) hologramLocation.add(0.5,0,-distance);
 		
 		HolographicDisplaysAPI hologramAPI = HolographicDisplaysAPI.get(Main.getPlugin(Main.class));
 		this.hologram = hologramAPI.createHologram(hologramLocation);
