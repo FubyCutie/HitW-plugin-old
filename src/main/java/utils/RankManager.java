@@ -6,10 +6,7 @@ import org.bukkit.entity.Player;
 public class RankManager {
 	
 	public static String loadRank(Player player) {
-		String[] value;
 		String rank = "";
-		int qualification = 0;
-		int finals = 0;
 		
 		if (player.getUniqueId().toString().replace("-", "").toString().equals("9293868b414c42b2bd8e3bcb791247b9")) {
 			rank = ChatColor.DARK_GRAY+"["+ChatColor.DARK_RED+"Yaku"+ChatColor.DARK_GRAY+"] "+ChatColor.DARK_RED;
@@ -17,26 +14,17 @@ public class RankManager {
 			return (rank);
 		}
 		
-		String output = Request.getPlayerInfo(player.getUniqueId().toString().replace("-", "").toString());
+		Integer score = Request.getPlayerScore(player);
 		
-		if (output == null) {
+		if (score == null) {
 			
-			rank = ChatColor.GRAY+"["+ChatColor.RED+"API"+ChatColor.GRAY+"]"+ChatColor.ITALIC+" ";
+			rank = ChatColor.GRAY+"["+ChatColor.RED+"ERROR"+ChatColor.GRAY+"]"+ChatColor.ITALIC+" ";
 			
 			setDisplayName(player, rank + player.getName() + ChatColor.RESET);
 			return(rank);
 		}
 		
-		value = output.split(",");
-		for (int i = 0; i < value.length; i++) {
-			if (value[i].contains("hitw_record_q")) {
-				qualification = Integer.valueOf(value[i].replaceAll("[^0-9]", ""));
-			}
-			if (value[i].contains("hitw_record_f")) {
-				finals = Integer.valueOf(value[i].replaceAll("[^0-9]", ""));
-			}
-		}
-		rank = getRank(qualification, finals);
+		rank = getRank(score);
 		
 		setDisplayName(player, rank + player.getName() + ChatColor.RESET);
 		return (rank);
@@ -103,6 +91,10 @@ public class RankManager {
 		} else {
 			return(ChatColor.GRAY+"");
 		}
+	}
+	
+	private static String getRank(int score) {
+		return getRank(score, 0);
 	}
 	
 	private static void setDisplayName(Player player, String str) {

@@ -1,6 +1,11 @@
 package utils;
 
+import core.HPlayer;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -27,5 +32,19 @@ public class Request {
 			System.err.println("Hypixel api issue");
 			return null;
 		}
+	}
+	
+	public static Integer getPlayerScore(Player p) {
+		Integer scoreQualification = null;
+		Integer scoreFinals = null;
+		if (new File("./plugins/HitW/player data/"+p.getUniqueId().toString().replace("-", "")+".yml").exists()) {
+			YamlConfiguration playerData = YamlConfiguration.loadConfiguration(new File("./plugins/HitW/player data/"+p.getUniqueId().toString().replace("-", "")+".yml"));
+			scoreQualification = playerData.getInt("score.Q");
+			scoreFinals = playerData.getInt("score.F");
+		}
+		if (scoreQualification == null) {
+			return null;
+		}
+		return Math.max(scoreQualification, scoreFinals);
 	}
 }
