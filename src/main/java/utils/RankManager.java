@@ -8,6 +8,12 @@ public class RankManager {
 	public static String loadRank(Player player) {
 		String rank = "";
 		
+		String error = ChatColor.GRAY+"["+ChatColor.RED+"ERROR"+ChatColor.GRAY+"]"+ChatColor.ITALIC+" ";
+		
+		if (player == null) {
+			return error;
+		}
+		
 		if (player.getUniqueId().toString().replace("-", "").toString().equals("9293868b414c42b2bd8e3bcb791247b9")) {
 			rank = ChatColor.DARK_GRAY+"["+ChatColor.DARK_RED+"Yaku"+ChatColor.DARK_GRAY+"] "+ChatColor.DARK_RED;
 			setDisplayName(player, rank + player.getName() + ChatColor.RESET);
@@ -17,11 +23,8 @@ public class RankManager {
 		Integer score = Request.getPlayerScore(player);
 		
 		if (score == null) {
-			
-			rank = ChatColor.GRAY+"["+ChatColor.RED+"ERROR"+ChatColor.GRAY+"]"+ChatColor.ITALIC+" ";
-			
-			setDisplayName(player, rank + player.getName() + ChatColor.RESET);
-			return(rank);
+			setDisplayName(player, error + player.getName() + ChatColor.RESET);
+			return(error);
 		}
 		
 		rank = getRank(score);

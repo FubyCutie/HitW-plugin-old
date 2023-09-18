@@ -262,8 +262,8 @@ public class CommandDuel {
 	public void run(CommandSender sender, String[] args) {
 		HPlayer hsender = HPlayer.getHPlayer((Player) sender);
 		if (args.length == 0) {sender.sendMessage("§cMissing arguments, try §r/duel [player] §c!"); return;}
-		HPlayer opponent = HPlayer.getHPlayer(Bukkit.getPlayer(args[0]));
 		if (args.length == 1) {
+			HPlayer opponent = HPlayer.getHPlayer(Bukkit.getPlayer(args[0]));
 			if (opponent == null) {sender.sendMessage("§cUnknow player §r" + args[0] + " §c!"); return;}
 			if (opponent == hsender) {sender.sendMessage("§cYou can't duel yourself !"); return;}
 			
