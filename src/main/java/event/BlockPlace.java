@@ -1,5 +1,6 @@
 package event;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -15,7 +16,12 @@ public class BlockPlace {
 	public void execute(BlockPlaceEvent event) {
 		HPlayer p = HPlayer.getHPlayer(event.getPlayer());
 		
-		if (!p.isInGame()) return;
+		if (!p.isInGame()) {
+			if (event.getPlayer().getGameMode() != GameMode.CREATIVE) {
+				event.setCancelled(true);
+			}
+			return;
+		}
 		
 		HGame game = null;
 		

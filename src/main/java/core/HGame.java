@@ -1,10 +1,15 @@
 package core;
 
 import java.util.Collections;
+import java.util.Objects;
 
 import analytics.AnalyticsActions;
 import analytics.AnalyticsWallType;
 import analytics.AnalyticsWatcher;
+import me.filoghost.holographicdisplays.api.beta.HolographicDisplaysAPI;
+import me.filoghost.holographicdisplays.api.beta.hologram.Hologram;
+import me.filoghost.holographicdisplays.api.beta.hologram.HologramLines;
+import me.filoghost.holographicdisplays.plugin.api.v2.V2HologramsAPIProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -31,6 +36,8 @@ public class HGame {
 	protected boolean isClassic;
 	protected boolean customGame;
 	
+	protected Hologram hologram;
+	
 	public HGame(World world, Direction direction, Area wall, Area area, Area playfield, String name, int[] holes, boolean isClassic, boolean customGame) {
 		this.world = world;
 		this.direction = direction;
@@ -46,6 +53,28 @@ public class HGame {
 		this.type = "";
 		this.isClassic = isClassic;
 		this.customGame = customGame;
+		
+		Location hologramLocation =
+				new Location(
+						this.getWorld(),
+						(wall.x0 + wall.x1)/2,
+						Math.max(wall.y0,wall.y1) + 6.5,
+						(wall.z0 + wall.z1)/2
+				);
+		
+		int distance = 21;
+		if (name.equals("Qualification")) distance = 16;
+		if (name.equals("Wide Qualification")) distance = 16;
+		if (name.equals("Wide Finals")) distance = 16;
+		if (name.equals("Lobby Wall")) distance = 11;
+		
+		if (direction == Direction.SOUTH) hologramLocation.add(-distance,0,0.5);
+		if (direction == Direction.NORTH) hologramLocation.add(distance,0,0.5);
+		if (direction == Direction.EAST) hologramLocation.add(0.5,0,distance);
+		if (direction == Direction.WEST) hologramLocation.add(0.5,0,-distance);
+		
+		HolographicDisplaysAPI hologramAPI = HolographicDisplaysAPI.get(Main.getPlugin(Main.class));
+		this.hologram = hologramAPI.createHologram(hologramLocation);
 	}
 	
 	public HGame(World world, Direction direction, CustomArea wall, Area area, CustomArea playfield, String name, int[] holes, boolean isClassic, boolean customGame) {
@@ -402,4 +431,13 @@ public class HGame {
 	public void setOwner(HPlayer owner) {
 		this.owner = owner;
 	}
+	
+	public Hologram getHologram() {
+		return hologram;
+	}
+	
+	public void setHologram(Hologram hologram) {
+		this.hologram = hologram;
+	}
+	
 }

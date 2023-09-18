@@ -12,6 +12,7 @@ import core.HPlayer;
 import main.Main;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import utils.GameUtils;
 import utils.Utils;
 
 public class CommandParty {
@@ -290,7 +291,7 @@ public class CommandParty {
 			hps.getPlayer().sendMessage("");
 			hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
 			hps.setInParty(false);
-			hps.setInGame(false, null);
+			GameUtils.stopGames(hps);
 			hps.getBoard().setTitle(hps.getDisplayName());
 			hps.setPartyLeader(false);
 			hps.getParty().clear();

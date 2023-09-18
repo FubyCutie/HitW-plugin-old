@@ -51,5 +51,6 @@ dependencies {
     implementation files('lib/craftbukkit-1.8.8-R0.1-SNAPSHOT.jar')
     implementation files('lib/NoteBlockAPI-1.6.1-SNAPSHOT.jar')
     implementation files('lib/NPC-API.jar')
+    implementation files('lib/HolographicDisplays.jar')
 
 }
