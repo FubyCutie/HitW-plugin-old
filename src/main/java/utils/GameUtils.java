@@ -294,6 +294,9 @@ public class GameUtils {
 	}
 	
 	public static void stopGames(HPlayer p) {
+		
+		System.out.println(p.getDisplayName() + "'s game is stopping");
+		
 		p.setUsePlay(false);
 		for (HGame game : Main.hGames) {
 			if (game.getOwner() == p) {

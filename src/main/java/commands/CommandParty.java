@@ -200,13 +200,13 @@ public class CommandParty {
 		List<HPlayer> party = new ArrayList<>(hsender.getParty());
 		
 		for (HPlayer hps : party) {
+			GameUtils.stopGames(hps);
 			hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
 			hps.getPlayer().sendMessage("");
 			hps.getPlayer().sendMessage(Utils.centerText("§eThe party got disbanded"));
 			hps.getPlayer().sendMessage("");
 			hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
 			hps.setInParty(false);
-			hps.setInGame(false, null);
 			hps.getBoard().setTitle(hps.getDisplayName());
 			hps.setPartyLeader(false);
 			hps.getParty().clear();
@@ -285,13 +285,13 @@ public class CommandParty {
 		List<HPlayer> party = new ArrayList<>(hsender.getParty());
 		
 		for (HPlayer hps : party) {
+			GameUtils.stopGames(hps);
 			hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
 			hps.getPlayer().sendMessage("");
 			hps.getPlayer().sendMessage(Utils.centerText("§eThe party got disbanded"));
 			hps.getPlayer().sendMessage("");
 			hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
 			hps.setInParty(false);
-			GameUtils.stopGames(hps);
 			hps.getBoard().setTitle(hps.getDisplayName());
 			hps.setPartyLeader(false);
 			hps.getParty().clear();
