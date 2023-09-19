@@ -56,7 +56,6 @@ public class ScoreboardManager {
 		
 		HologramLines lines = hologram.getLines();
 		
-		
 		if (lines.size() != 11) {
 			lines.clear();
 			for (int i = 0; i < 11; i++) {
@@ -110,14 +109,31 @@ public class ScoreboardManager {
 			p.getBoard().set(2, "Wall: §a" + p.getWall());
 		}
 		
-		HGame game = Main.hGames.stream().filter(g -> g.getOwner() == p).collect(Collectors.toList()).get(0);
+		HGame game = GameUtils.getGameArea(p.getPlayer());
+		
 		if (game == null) return;
 		Hologram hologram = game.getHologram();
 		if (hologram == null) return;
 		
 		HologramLines lines = hologram.getLines();
 		
-		lines.clear();
+		if (lines.size() != 11) {
+			lines.clear();
+			for (int i = 0; i < 11; i++) {
+				lines.appendText(" ");
+			}
+		}
+		((TextHologramLine) lines.get(0)).setText(p.getDisplayName());
+		((TextHologramLine) lines.get(1)).setText(" ");
+		((TextHologramLine) lines.get(2)).setText("§6Play Time: §a" + str);
+		((TextHologramLine) lines.get(3)).setText("§6Perfect Walls: §a" + p.getPerfectWall());
+		((TextHologramLine) lines.get(4)).setText("§6Wall: §a" + p.getWall());
+		((TextHologramLine) lines.get(5)).setText(" ");
+		((TextHologramLine) lines.get(6)).setText("§6Score: §a" + p.getScore());
+		((TextHologramLine) lines.get(7)).setText(" ");
+		((TextHologramLine) lines.get(8)).setText("§6Missing block: §4" + p.getMissed());
+		((TextHologramLine) lines.get(9)).setText("§6Misplaced block: §4" + p.getMisplaced());
+		((TextHologramLine) lines.get(10)).setText("§6Choke: §4" + p.getChoke());
 	}
 	
 	public static void setDuelScoreboard(String stage, HPlayer p) {

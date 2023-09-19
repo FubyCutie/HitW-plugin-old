@@ -274,7 +274,7 @@ public class CommandDuel {
 		}
 		
 		if (args.length == 2 && args[0].equalsIgnoreCase("accept")) {
-			if (!hsender.isDuelInvite()) {sender.sendMessage("§cNobody invited you tu a duel !"); return;}
+			if (!hsender.isDuelInvite()) {sender.sendMessage("§cNobody invited you to a duel !"); return;}
 			accept(hsender, args);
 		}
 	}
